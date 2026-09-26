@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { getExpenses, addExpense } from '../lib/store';
 import { Expense } from '../types';
-import { Plus, X, CreditCard, Trash2 } from 'lucide-react';
+import { Plus, X, CreditCard } from 'lucide-react';
 
 export default function Expenses() {
   const [expenses, setExpenses] = useState<Expense[]>([]);

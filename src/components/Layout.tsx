@@ -1,9 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import {
   LayoutDashboard, Package, ShoppingCart, Users, Truck,
-  FileText, CreditCard, Receipt, Settings, Database,
-  Menu, X, ChevronDown, LogOut
+  FileText, CreditCard, Settings, Database,
+  Menu, X, BarChart3, Wallet, ClipboardList
 } from 'lucide-react';
 
 interface LayoutProps {
@@ -14,12 +14,12 @@ const navigation = [
   { name: 'Dashboard', href: '/', icon: LayoutDashboard },
   { name: 'POS / New Sale', href: '/pos', icon: ShoppingCart },
   { name: 'Products', href: '/products', icon: Package },
-  { name: 'Sales', href: '/sales', icon: Receipt },
+  { name: 'Sales', href: '/sales', icon: ClipboardList },
   { name: 'Customers', href: '/customers', icon: Users },
   { name: 'Suppliers', href: '/suppliers', icon: Truck },
   { name: 'Purchases', href: '/purchases', icon: FileText },
-  { name: 'Payments', href: '/payments', icon: CreditCard },
-  { name: 'Reports', href: '/reports', icon: FileText },
+  { name: 'Payments', href: '/payments', icon: Wallet },
+  { name: 'Reports', href: '/reports', icon: BarChart3 },
   { name: 'Expenses', href: '/expenses', icon: CreditCard },
   { name: 'Database Setup', href: '/database-setup', icon: Database },
   { name: 'Settings', href: '/settings', icon: Settings },

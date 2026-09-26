@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { getProducts, getSales, getCustomers, getPayments } from '../lib/store';
 import { Product, Sale, Customer, Payment } from '../types';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line } from 'recharts';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
 import { DollarSign, Package, Users, AlertTriangle, TrendingUp, ShoppingCart } from 'lucide-react';
 
 export default function Dashboard() {
@@ -9,12 +9,14 @@ export default function Dashboard() {
   const [sales, setSales] = useState<Sale[]>([]);
   const [customers, setCustomers] = useState<Customer[]>([]);
   const [payments, setPayments] = useState<Payment[]>([]);
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setProducts(getProducts());
     setSales(getSales());
     setCustomers(getCustomers());
     setPayments(getPayments());
+    setMounted(true);
   }, []);
 
   const today = new Date().toDateString();
@@ -128,6 +130,7 @@ export default function Dashboard() {
       </div>
 
       {/* Charts Row */}
+      {mounted && (
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
         {/* Sales Chart */}
         <div className="bg-white rounded-xl shadow-sm p-5 border border-gray-100">
@@ -158,6 +161,7 @@ export default function Dashboard() {
           </ResponsiveContainer>
         </div>
       </div>
+      )}
 
       {/* Bottom Row */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

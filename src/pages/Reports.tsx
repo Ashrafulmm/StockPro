@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import { getProducts, getSales, getCustomers, getPayments, getExpenses } from '../lib/store';
 import { Product, Sale, Customer, Payment, Expense } from '../types';
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell, LineChart, Line, Legend } from 'recharts';
-import { FileText, TrendingUp, Package, DollarSign, Calendar } from 'lucide-react';
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, PieChart, Pie, Cell } from 'recharts';
+import { Calendar } from 'lucide-react';
 
 export default function Reports() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -13,6 +13,7 @@ export default function Reports() {
   const [activeTab, setActiveTab] = useState('sales');
   const [dateFrom, setDateFrom] = useState('');
   const [dateTo, setDateTo] = useState('');
+  const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
     setProducts(getProducts());
@@ -20,6 +21,7 @@ export default function Reports() {
     setCustomers(getCustomers());
     setPayments(getPayments());
     setExpenses(getExpenses());
+    setMounted(true);
   }, []);
 
   const filteredSales = sales.filter(s => {
@@ -153,6 +155,7 @@ export default function Reports() {
             </div>
           </div>
 
+          {mounted && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Monthly Revenue</h3>
@@ -181,6 +184,7 @@ export default function Reports() {
               </ResponsiveContainer>
             </div>
           </div>
+          )}
 
           {/* Top Products */}
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
@@ -229,6 +233,7 @@ export default function Reports() {
             </div>
           </div>
 
+          {mounted && (
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 p-5">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Stock by Category</h3>
             <ResponsiveContainer width="100%" height={300}>
@@ -246,6 +251,7 @@ export default function Reports() {
               </BarChart>
             </ResponsiveContainer>
           </div>
+          )}
 
           <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
             <div className="p-5 border-b">

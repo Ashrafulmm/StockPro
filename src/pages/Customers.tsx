@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
 import { getCustomers, addCustomer, updateCustomer, deleteCustomer, getSales } from '../lib/store';
 import { Customer, Sale } from '../types';
-import { Plus, Search, Edit, Trash2, X, Users, Phone, Mail, DollarSign } from 'lucide-react';
+import { Plus, Search, Edit, Trash2, X, Users, Phone, Mail } from 'lucide-react';
 
 export default function Customers() {
   const [customers, setCustomers] = useState<Customer[]>([]);
