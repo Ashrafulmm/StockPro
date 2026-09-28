@@ -139,14 +139,3 @@ export interface StoreSettings {
   invoicePrefix: string;
   receiptFooter: string;
 }
-
-export interface DashboardStats {
-  totalSales: number;
-  totalRevenue: number;
-  totalProducts: number;
-  lowStockProducts: number;
-  totalCustomers: number;
-  totalDue: number;
-  todaySales: number;
-  todayRevenue: number;
-}
