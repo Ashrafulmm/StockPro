@@ -18,7 +18,7 @@ import { seedDemoData } from './lib/store';
 function App() {
   useEffect(() => {
     // Seed demo data on first load
-    seedDemoData();
+    seedDemoData().catch(console.error);
   }, []);
 
   return (

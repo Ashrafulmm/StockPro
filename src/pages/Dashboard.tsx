@@ -12,11 +12,20 @@ export default function Dashboard() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setProducts(getProducts());
-    setSales(getSales());
-    setCustomers(getCustomers());
-    setPayments(getPayments());
-    setMounted(true);
+    const loadData = async () => {
+      const [productsData, salesData, customersData, paymentsData] = await Promise.all([
+        getProducts(),
+        getSales(),
+        getCustomers(),
+        getPayments()
+      ]);
+      setProducts(productsData);
+      setSales(salesData);
+      setCustomers(customersData);
+      setPayments(paymentsData);
+      setMounted(true);
+    };
+    loadData();
   }, []);
 
   const today = new Date().toDateString();

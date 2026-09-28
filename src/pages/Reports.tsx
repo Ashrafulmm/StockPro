@@ -16,12 +16,18 @@ export default function Reports() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    setProducts(getProducts());
-    setSales(getSales());
-    setCustomers(getCustomers());
-    setPayments(getPayments());
-    setExpenses(getExpenses());
-    setMounted(true);
+    const loadData = async () => {
+      const [productsData, salesData, customersData, paymentsData, expensesData] = await Promise.all([
+        getProducts(), getSales(), getCustomers(), getPayments(), getExpenses()
+      ]);
+      setProducts(productsData);
+      setSales(salesData);
+      setCustomers(customersData);
+      setPayments(paymentsData);
+      setExpenses(expensesData);
+      setMounted(true);
+    };
+    loadData();
   }, []);
 
   const filteredSales = sales.filter(s => {

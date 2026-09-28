@@ -11,7 +11,13 @@ export default function Expenses() {
 
   const categories = ['Office', 'Rent', 'Utilities', 'Salary', 'Transport', 'Marketing', 'Maintenance', 'Other'];
 
-  useEffect(() => { setExpenses(getExpenses()); }, []);
+  useEffect(() => {
+    const loadData = async () => {
+      const expensesData = await getExpenses();
+      setExpenses(expensesData);
+    };
+    loadData();
+  }, []);
 
   const totalExpenses = expenses.reduce((sum, e) => sum + e.amount, 0);
   const thisMonthExpenses = expenses.filter(e => {
@@ -20,7 +26,7 @@ export default function Expenses() {
     return d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear();
   }).reduce((sum, e) => sum + e.amount, 0);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.amount || form.amount <= 0) return;
     const newExpense: Expense = {
@@ -31,8 +37,9 @@ export default function Expenses() {
       date: form.date || new Date().toISOString().split('T')[0],
       createdAt: new Date().toISOString(),
     };
-    addExpense(newExpense);
-    setExpenses(getExpenses());
+    await addExpense(newExpense);
+    const updatedExpenses = await getExpenses();
+    setExpenses(updatedExpenses);
     setShowForm(false);
     setForm({ category: 'Office', amount: 0, description: '', date: new Date().toISOString().split('T')[0] });
   };

@@ -17,8 +17,12 @@ export default function Customers() {
   });
 
   useEffect(() => {
-    setCustomers(getCustomers());
-    setSales(getSales());
+    const loadData = async () => {
+      const [customersData, salesData] = await Promise.all([getCustomers(), getSales()]);
+      setCustomers(customersData);
+      setSales(salesData);
+    };
+    loadData();
   }, []);
 
   const filteredCustomers = customers.filter(c =>
@@ -51,13 +55,13 @@ export default function Customers() {
     setShowForm(true);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name) return;
 
     if (editingCustomer) {
       const updated = { ...editingCustomer, ...form } as Customer;
-      updateCustomer(updated);
+      await updateCustomer(updated);
     } else {
       const newCustomer: Customer = {
         id: uuidv4(),
@@ -72,16 +76,18 @@ export default function Customers() {
         openingBalance: Number(form.openingBalance) || 0,
         createdAt: new Date().toISOString(),
       };
-      addCustomer(newCustomer);
+      await addCustomer(newCustomer);
     }
-    setCustomers(getCustomers());
+    const updatedCustomers = await getCustomers();
+    setCustomers(updatedCustomers);
     setShowForm(false);
   };
 
-  const handleDelete = (id: string) => {
+  const handleDelete = async (id: string) => {
     if (confirm('Are you sure you want to delete this customer?')) {
-      deleteCustomer(id);
-      setCustomers(getCustomers());
+      await deleteCustomer(id);
+      const updatedCustomers = await getCustomers();
+      setCustomers(updatedCustomers);
     }
   };
 
