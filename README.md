@@ -1,2 +1,2 @@
 # StockPro
-StockPro is an inventory
+StockPro is an inventory.
